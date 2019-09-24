@@ -1,0 +1,30 @@
+{
+  "name": "docsify-glossary",
+  "version": "0.0.1",
+  "description": "A simple glossary plugin for docsify",
+  "main": "src",
+  "scripts": {
+    "build": "npm run build:dev && npm run build:prod",
+    "build:dev": "webpack src/index.js -o dist/docsify-glossary.js --mode=development && webpack src/index.js -o example/docsify-glossary.js --mode=development",
+    "build:prod": "webpack src/index.js -o dist/docsify-glossary.min.js --mode=production"
+  },
+  "files": [
+    "src",
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheGreenToaster/docsify-glossary.git"
+  },
+  "author": "TheGreenToaster",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheGreenToaster/docsify-glossary/issues"
+  },
+  "homepage": "https://github.com/TheGreenToaster/docsify-glossary#readme",
+  "devDependencies": {
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9"
+  }
+}
