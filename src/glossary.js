@@ -18,8 +18,9 @@ export function install (hook, vm) {
         }
 
         if(!window.$docsify.terms){
-          fetch('_glossary.md').then(function(data){
-            data.text().then(function(text){
+          Docsify
+            .get(vm.router.getFile("/_glossary"), false, vm.config.requestHeaders)
+            .then(text => {
               window.$docsify.terms = {};
 
               let lines = text.split('\n');
@@ -34,7 +35,6 @@ export function install (hook, vm) {
               });
 
               addLinks(content,next,window.$docsify.terms);
-            })
           })
         } else{
           addLinks(content,next,window.$docsify.terms);
