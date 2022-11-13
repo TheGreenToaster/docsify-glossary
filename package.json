@@ -8,6 +8,9 @@
     "build:dev": "webpack src/main/js/index.js -o dist/docsify-glossary.js --mode=development && webpack src/index.js -o example/docsify-glossary.js --mode=development",
     "build:prod": "webpack src/main/js/index.js -o dist/docsify-glossary.min.js --mode=production",
     "test": "jest --config ./jest.config.json",
+    "lint:fix": "npx eslint ./src/main/js/*.js ./src/test/js/*.js --fix",
+    "lint:check": "npx eslint ./src/main/js/*.js ./src/test/js/*.js",
+    "lint": "npm run lint:fix",
     "test:watch": "npm run test -- --watch"
   },
   "files": [
@@ -26,6 +29,8 @@
   },
   "homepage": "https://github.com/stijn-dejongh/docsify-glossary#readme",
   "devDependencies": {
+    "eslint": "^8.27.0",
+    "eslint-plugin-jest": "^27.1.5",
     "jest": "^29.3.1",
     "webpack": "^5.75.0",
     "webpack-cli": "^4.10.0"
