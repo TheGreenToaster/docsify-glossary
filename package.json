@@ -2,19 +2,20 @@
   "name": "docsify-glossary",
   "version": "0.0.2",
   "description": "A simple glossary plugin for docsify",
-  "main": "src/main/js",
+  "main": "src/main/js/index.js",
   "scripts": {
-    "build": "npm run build:dev && npm run build:prod",
-    "build:dev": "webpack src/main/js/index.js -o dist/docsify-glossary.js --mode=development && webpack src/index.js -o example/docsify-glossary.js --mode=development",
+    "build": "npm run test && npm run build:dev && npm run build:prod",
+    "build:dev": "webpack src/main/js/index.js -o dist/docsify-glossary.js --mode=development && webpack src/main/js/index.js -o example/docsify-glossary.js --mode=development",
     "build:prod": "webpack src/main/js/index.js -o dist/docsify-glossary.min.js --mode=production",
     "test": "jest --config ./jest.config.json",
     "lint:fix": "npx eslint ./src/main/js/*.js ./src/test/js/*.js --fix",
     "lint:check": "npx eslint ./src/main/js/*.js ./src/test/js/*.js",
     "lint": "npm run lint:fix",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test --watch"
   },
   "files": [
-    "src",
+    "src/main/js/index.js",
+    "src/main/js/glossary.js",
     "dist",
     "README.md"
   ],
