@@ -1,4 +1,4 @@
-import { install } from './glossary'
+import {install} from './glossary'
 
 if (!window.$docsify) {
   window.$docsify = {}
