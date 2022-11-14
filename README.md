@@ -1,9 +1,8 @@
 # docsify-glossary: SD Development Fork
 
 Simple Glossary for Docsify that replaces occurrences of the terms with links to the glossary.
-Forked from [TheGreenToaster/docsify-glossary](https://github.com/TheGreenToaster/docsify-glossary) after the original
-project was unmaintained for over 3 years, to address a couple of usability issues with the
-original script.
+Forked from [TheGreenToaster/docsify-glossary](https://github.com/TheGreenToaster/docsify-glossary) as the original
+project was unmaintained for over 3 years, to address a couple of usability issues with the original script.
 
 ## Installation
 
@@ -27,3 +26,7 @@ original script.
 1. Run `npm run-script build`
 2. Run `docsify serve example`
 3. Go to [http://localhost:3000/]()
+
+## Changelog
+
+An overview of all the changes made to this codebase can be found in the [CHANGELOG](./CHANGELOG.md) file included in this repository.

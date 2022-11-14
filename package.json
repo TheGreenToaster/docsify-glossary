@@ -1,7 +1,7 @@
 {
   "name": "docsify-glossary",
   "version": "0.0.2",
-  "description": "A simple glossary plugin for docsify",
+  "description": "A simple glossary plugin for docsify, forked from the original work by TheGreenToaster",
   "main": "dist/docsify-glossary.js",
   "unpkg": "dist/docsify-tabs.min.js",
   "scripts": {
@@ -32,10 +32,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TheGreenToaster/docsify-glossary.git"
+    "url": "git+https://github.com/stijn-dejongh/docsify-glossary.git"
   },
-  "author": "TheGreenToaster",
-  "license": "ISC",
+  "author": "Stijn Dejongh",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/TheGreenToaster/docsify-glossary/issues"
   },
