@@ -1,15 +1,19 @@
 {
     "plugins": ["jest"],
     "env": {
-        "browser": true,
-        "es2021": true,
-        "jest": true
+        "browser"   : true,
+        "commonjs"  : true,
+        "es6"       : true,
+        "node"      : true,
+        "jest"      : true
     },
     "extends": "eslint:recommended",
-    "overrides": [
+    "overrides": [],
+    "ignorePatterns": [
+      "dist"
     ],
     "parserOptions": {
-        "ecmaVersion": "latest",
+        "ecmaVersion": 6,
         "sourceType": "module"
     },
     "rules": {
