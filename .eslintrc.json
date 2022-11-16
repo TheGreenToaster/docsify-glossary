@@ -12,6 +12,7 @@
     "ignorePatterns": [
       "dist"
     ],
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
         "ecmaVersion": 6,
         "sourceType": "module"
