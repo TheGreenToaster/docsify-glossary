@@ -6,6 +6,7 @@
   "unpkg": "dist/docsify-tabs.min.js",
   "scripts": {
     "build": "rollup -c",
+    "ci": "npm run clean && npm run lint && npm run test && npm run build",
     "clean": "rimraf dist/*",
     "test": "jest --config ./jest.config.json --coverage",
     "lint:fix": "npx eslint ./src/main/js/*.js ./src/test/js/*.js --fix",

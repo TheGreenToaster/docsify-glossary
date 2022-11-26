@@ -83,7 +83,7 @@ const config = {
   output: {
     banner   : `/*!\n * ${ bannerData.join('\n * ') }\n */`,
     file     : outputFile,
-    sourcemap: true
+    sourcemap: false
   },
   plugins: [
     nodeResolve(),

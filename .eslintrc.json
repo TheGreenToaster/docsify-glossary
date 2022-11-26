@@ -18,9 +18,9 @@
         "sourceType": "module"
     },
     "rules": {
-        "indent": [
-            "error",
-            "tab"
+        "indent": ["error", 2],
+        "max-len": [
+            "error", { "code": 148 }
         ],
         "linebreak-style": [
             "error",

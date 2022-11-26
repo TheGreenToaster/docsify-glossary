@@ -6,6 +6,8 @@ Simple Glossary for Docsify that replaces occurrences of the terms with links to
 Forked from [TheGreenToaster/docsify-glossary](https://github.com/TheGreenToaster/docsify-glossary) as the original
 project was unmaintained for over 3 years, to address a couple of usability issues with the original script.
 
+An example usage can be found here [./example](./example), it is deployed automatically to this [github page](https://stijn-dejongh.github.io/docsify-glossary/#/).
+
 ## Installation
 
 1. Insert script into docsify document
@@ -19,7 +21,7 @@ project was unmaintained for over 3 years, to address a couple of usability issu
 
 ## Usage
 
-* Terms must be predicated with `##### ` to get recognized by the glossary
+* Terms must be predicated with a consistent markdown heading to get recognized by the glossary (see configuration)
 * Terms in the documentation must be surrounded by space to get replaced by the regular expression
 * Terms are replaced with links in the order that they appear in the glossary file.
 
