@@ -34,7 +34,7 @@ An overview of all the changes made to this codebase can be found in the [CHANGE
 ## TODO list
 
 * [x] Bump dependency versions
-* [ ] add unit tests to the code to make this package more maintainable
+* [x] add unit tests to the code to make this package more maintainable
 * [ ] make glossary file name/location configurable, see [feature request #1](https://github.com/TheGreenToaster/docsify-glossary/issues/1)
 * [ ] make terminology heading depth configurable, see [feature request #1](https://github.com/TheGreenToaster/docsify-glossary/issues/1)
 * [ ] fix issue with terminology replacements in page headers/titles, see: [bug report #6](https://github.com/TheGreenToaster/docsify-glossary/issues/6)

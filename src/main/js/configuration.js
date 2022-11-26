@@ -4,6 +4,7 @@ let DEFAULT_GLOSSARY_FILE_NAME = '_glossary.md';
 export class GlossaryConfigurationBuilder {
 	terminologyHeading = '';
 	glossaryLocation = '';
+	debug = false;
 
 	constructor() {
 		this.terminologyHeading = DEFAULT_TERM_HEADING;
@@ -20,7 +21,20 @@ export class GlossaryConfigurationBuilder {
 		return this;
 	}
 
+	withDebugEnabled(enableDebug) {
+		this.debug = enableDebug;
+		return this;
+	}
+
 	build() {
 		return {...this};
+	}
+
+	static fromConfig(configurationYaml) {
+		return new GlossaryConfigurationBuilder()
+			.withTermHeading(configurationYaml.terminologyHeading??DEFAULT_TERM_HEADING)
+			.withGlossaryLocation(configurationYaml.glossaryLocation??DEFAULT_GLOSSARY_FILE_NAME)
+			.withDebugEnabled(configurationYaml.debug??false)
+			.build();
 	}
 }

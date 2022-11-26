@@ -8,6 +8,21 @@ describe('Glossary package', () => {
 		expect(true).toEqual(true);
 	});
 
+	it('can be configured from the docsify settings', () => {
+		const configurationYaml = `
+			glossify: {
+        terminologyHeading: '####',                  // old default
+        glossaryLocation: '_glossary.md'						 // default value
+        debug: true,                                // default value
+    	}`;
+
+		let parsedConfiguration= GlossaryConfigurationBuilder.fromConfig(configurationYaml);
+
+		expect(parsedConfiguration.terminologyHeading).toEqual('####');
+		expect(parsedConfiguration.glossaryLocation).toEqual('_glossary.md');
+		expect(parsedConfiguration.debug).toEqual(true);
+	});
+
 });
 
 describe('Dictionary parser', () => {
@@ -44,6 +59,8 @@ independently and runs its own operating system.
 
 An initial program, usually stored on ROM or EEPROM memory, to initiallize all aspects of the system.
 `;
+
+
 	it('can be loaded from a markdown file', () => {
 		let config = new GlossaryConfigurationBuilder()
 			.withTermHeading('###')
@@ -59,6 +76,5 @@ An initial program, usually stored on ROM or EEPROM memory, to initiallize all a
 		);
 
 	});
-
 });
 
