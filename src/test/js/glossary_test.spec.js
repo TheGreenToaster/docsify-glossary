@@ -1,5 +1,6 @@
 import {loadTerminology} from '../../main/js/glossary';
 import {describe, expect, it} from '@jest/globals';
+import {parse} from 'yaml';
 import {GlossaryConfigurationBuilder} from '../../main/js/configuration';
 
 describe('Glossary package', () => {
@@ -11,12 +12,14 @@ describe('Glossary package', () => {
 	it('can be configured from the docsify settings', () => {
 		const configurationYaml = `
 			glossify: {
-        terminologyHeading: '####',                  // old default
-        glossaryLocation: '_glossary.md'						 // default value
-        debug: true,                                // default value
+        terminologyHeading: '####',
+        glossaryLocation: '_glossary.md',
+        debug: true
     	}`;
 
-		let parsedConfiguration= GlossaryConfigurationBuilder.fromConfig(configurationYaml);
+		const parsedConfig = parse(configurationYaml);
+
+		let parsedConfiguration= GlossaryConfigurationBuilder.fromConfig(parsedConfig['glossify']);
 
 		expect(parsedConfiguration.terminologyHeading).toEqual('####');
 		expect(parsedConfiguration.glossaryLocation).toEqual('_glossary.md');
