@@ -1,5 +1,5 @@
 {
-  "name": "docsify-glossary",
+  "name": "@stijn-dejongh/docsify-glossary",
   "version": "0.0.2",
   "description": "A simple glossary plugin for docsify, forked from the original work by TheGreenToaster",
   "main": "dist/docsify-glossary.js",
@@ -33,7 +33,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stijn-dejongh/docsify-glossary.git"
+    "url": "https://github.com/stijn-dejongh/docsify-glossary.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "author": "Stijn Dejongh",
   "license": "Apache-2.0",
