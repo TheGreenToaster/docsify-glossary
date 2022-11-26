@@ -1,0 +1,42 @@
+{
+    "plugins": ["jest"],
+    "env": {
+        "browser"   : true,
+        "commonjs"  : true,
+        "es6"       : true,
+        "node"      : true,
+        "jest"      : true
+    },
+    "extends": "eslint:recommended",
+    "overrides": [],
+    "ignorePatterns": [
+      "dist"
+    ],
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "rules": {
+        "indent": ["error", 2],
+        "max-len": [
+            "error", { "code": 148 }
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-unused-vars": [
+            "error",
+            { "vars": "all", "args": "after-used", "varsIgnorePattern": "_", "argsIgnorePattern":  "_"}
+        ]
+    }
+}
