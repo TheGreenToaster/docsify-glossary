@@ -7,7 +7,7 @@
   "scripts": {
     "build": "rollup -c",
     "clean": "rimraf dist/*",
-    "test": "jest --config ./jest.config.json",
+    "test": "jest --config ./jest.config.json --coverage",
     "lint:fix": "npx eslint ./src/main/js/*.js ./src/test/js/*.js --fix",
     "lint:check": "npx eslint ./src/main/js/*.js ./src/test/js/*.js",
     "lint": "npm run lint:fix",

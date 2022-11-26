@@ -14,6 +14,8 @@ created by [Stijn Dejongh](https://github.com/stijn-dejongh).
 - ESLint and configuration
 - basic Docsify configuration
 - Section with improvements added to README file
+- SonarQube definition
+- Basic github workflow definition
 
 ### Fixed
 

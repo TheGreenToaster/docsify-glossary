@@ -1,5 +1,7 @@
 # docsify-glossary: SD Development Fork
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=stijn-dejongh_docsify-glossary&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=stijn-dejongh_docsify-glossary)
+
 Simple Glossary for Docsify that replaces occurrences of the terms with links to the glossary.
 Forked from [TheGreenToaster/docsify-glossary](https://github.com/TheGreenToaster/docsify-glossary) as the original
 project was unmaintained for over 3 years, to address a couple of usability issues with the original script.
