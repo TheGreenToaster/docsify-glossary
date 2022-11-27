@@ -18,7 +18,7 @@
         "sourceType": "module"
     },
     "rules": {
-        "indent": ["error", 2],
+        "indent": ["error", 4, { "MemberExpression": 2 }],
         "max-len": [
             "error", { "code": 148 }
         ],
@@ -26,10 +26,27 @@
             "error",
             "unix"
         ],
+        "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
         "quotes": [
             "error",
             "single"
         ],
+        "key-spacing": ["error", {
+            "singleLine": {
+                "beforeColon": false,
+                "afterColon": true
+            },
+            "multiLine": {
+                "beforeColon": false,
+                "afterColon": true
+
+            },
+            "align": {
+                "beforeColon": true,
+                "afterColon": true,
+                "on": "colon"
+            }
+        }],
         "semi": [
             "error",
             "always"

@@ -83,6 +83,7 @@ const config = {
   output: {
     banner   : `/*!\n * ${ bannerData.join('\n * ') }\n */`,
     file     : outputFile,
+    name: '@stijn-dejongh/docsify-glossary.js',
     sourcemap: false
   },
   plugins: [
