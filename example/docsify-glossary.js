@@ -9,12 +9,25 @@ this["@stijn-dejongh/docsify-glossary"] = this["@stijn-dejongh/docsify-glossary"
 
 this["@stijn-dejongh/docsify-glossary"].js = function(exports) {
     "use strict";
-    function replaceTerm(term, content, term_id) {
-        var link = " [$1](/_glossary?id=".concat(term_id, ")");
-        var re = new RegExp("\\s(".concat(term, ")\\s"), "ig");
+    function replaceTermInLine(term, contentLine, linkId) {
+        var re = new RegExp("\\s(".concat(term, ")[\\s$]"), "ig");
         var reFullStop = new RegExp("\\s(".concat(term, ")."), "ig");
         var reComma = new RegExp("\\s(".concat(term, "),"), "ig");
-        return content.replace(reComma, link + ",").replace(re, link + " ").replace(reFullStop, link + ".");
+        var link = " [$1](/_glossary?id=".concat(linkId, ")");
+        var replacement = contentLine.replace(reComma, link + ",").replace(re, link + " ").replace(reFullStop, link + ".");
+        return isTitle(contentLine) ? replacement.replaceAll("[".concat(term, "]"), "[ ".concat(term, "]")) : replacement;
+    }
+    function isTitle(line) {
+        return line.trim().startsWith("#");
+    }
+    function replaceTerm(content, term, linkId) {
+        var contentLines = content.split("\n");
+        var processedText = "";
+        contentLines.forEach((function(line, _index) {
+            var replacedLine = line.trim().length > 0 ? replaceTermInLine(term, line + " ", linkId).trimEnd() : line;
+            processedText += replacedLine + "\n";
+        }));
+        return processedText;
     }
     function addLinks(content, terms, config) {
         var textWithReplacements = content;
@@ -22,7 +35,7 @@ this["@stijn-dejongh/docsify-glossary"].js = function(exports) {
             console.log("Adding links for terminology: ".concat(terms));
         }
         for (var term in terms) {
-            textWithReplacements = replaceTerm(term, textWithReplacements, terms[term]);
+            textWithReplacements = replaceTerm(textWithReplacements, term, terms[term]);
         }
         return textWithReplacements;
     }

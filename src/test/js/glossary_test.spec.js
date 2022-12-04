@@ -96,5 +96,32 @@ describe('Glossary terminology injection', () => {
 
         expect([...result.matchAll('/_glossary\\?id=api')]).toHaveLength(5);
     });
+
+    it('preserves spaces in title sequences', () => {
+        const textWithTitle = `
+          ## Information about the API
+          
+          Some API is configured to use another API.
+      `;
+
+        const result = addLinks(textWithTitle, dictionary, config);
+
+        expect(result).toContain('## Information about the [ API](/_glossary?id=api)');
+    });
+
+    it('Word replacement in title sequences can be disabled', () => {
+        const textWithTile = `
+            # This is an API title
+            
+            This is a paragraph of text, explaing stuff and mentioning the term API.
+       `;
+
+        const configuration = glossifyConfig().withTitleTermReplacement(false)
+                .build();
+
+        let result = addLinks(textWithTile, dictionary, configuration);
+
+        expect(result).toContain('# This is an API title');
+    });
 });
 

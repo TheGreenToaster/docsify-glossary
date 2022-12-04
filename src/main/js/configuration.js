@@ -5,7 +5,7 @@ export class GlossaryConfigurationBuilder {
     terminologyHeading = '';
     glossaryLocation = '';
     debug = false;
-
+    replaceTitleTerms = true;
     constructor() {
         this.terminologyHeading = DEFAULT_TERM_HEADING;
         this.glossaryLocation = DEFAULT_GLOSSARY_FILE_NAME;
@@ -26,6 +26,11 @@ export class GlossaryConfigurationBuilder {
         return this;
     }
 
+    withTitleTermReplacement(enableTitleTermReplacement) {
+        this.replaceTitleTerms = enableTitleTermReplacement;
+        return this;
+    }
+
     build() {
         return {...this};
     }
@@ -36,6 +41,7 @@ export function configFromYaml(configurationYaml) {
             .withTermHeading(configurationYaml.terminologyHeading ?? DEFAULT_TERM_HEADING)
             .withGlossaryLocation(configurationYaml.glossaryLocation ?? DEFAULT_GLOSSARY_FILE_NAME)
             .withDebugEnabled(configurationYaml.debug ?? false)
+            .withTitleTermReplacement(configurationYaml.replaceTitleTerms ?? true)
             .build();
 }
 
