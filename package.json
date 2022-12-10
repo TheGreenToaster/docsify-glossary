@@ -1,6 +1,6 @@
 {
   "name": "@stijn-dejongh/docsify-glossary",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "A simple glossary plugin for docsify, forked from the original work by TheGreenToaster",
   "main": "dist/docsify-glossary.js",
   "unpkg": "dist/docsify-tabs.min.js",
