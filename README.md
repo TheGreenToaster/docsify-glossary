@@ -12,20 +12,33 @@ An example usage can be found here [./example](./example), it is deployed automa
 
 ## Installation
 
-1. Insert script into docsify document
-
-```html
-<script src="./docsify-glossary.min.js"></script>
-```
-
-1. Create a `_glossary.md` file in the root directory
-2. Populate the `_glossary.md` file with terms.
+1. Download the latest version of the javascript (from our [releases page](https://github.com/stijn-dejongh/docsify-glossary/releases))
+2. Add the script into your docsify source directory
+3. Insert script into `docsify.template.js` document
+  ```html
+  <script src="./docsify-glossary.min.js"></script>
+  ```
+4. Create a `_glossary.md` file in the root directory
+5. Populate the `_glossary.md` file with terms.
 
 ## Plugin Usage
 
 * Terms must be predicated with a consistent Markdown heading to get recognized by the glossary (see configuration)
 * Terms are replaced with links in the order that they appear in the glossary file.
   * This is especially relevant for nested terminology ( e.g. _API_ and _API Usage_)
+
+### Configuration
+
+This version of the `docsify-glossary` plugin allows you to configure multiple aspects of the glossary.
+An example configuration is shown here:
+```yaml
+glossify: {
+    debug: false, # default
+    glossaryLocation: './X_Appendix/Glossary/HOME.md', # default is '_glossary.md'
+    terminologyHeading: '##', # default is '####', overwrite to fit your glossary heading depth
+    replaceTitleTerms: false  # default is 'true'
+}
+```
 
 ## Running the code
 
@@ -56,11 +69,6 @@ An overview of all the changes made to this codebase can be found in the [CHANGE
 
 * [x] Bump dependency versions
 * [x] add unit tests to the code to make this package more maintainable
-* [x] make glossary file name/location configurable, see [feature request #1](https://github.com/TheGreenToaster/docsify-glossary/issues/1)
-* [x] make terminology heading depth configurable, see [feature request #1](https://github.com/TheGreenToaster/docsify-glossary/issues/1)
-* [x] fix issue with terminology replacements in page headers/titles, see: [bug report #6](https://github.com/TheGreenToaster/docsify-glossary/issues/6)
-* [x] fix issue with terminology replacements in code blocks, see: [bug report #4](https://github.com/TheGreenToaster/docsify-glossary/issues/4)
-* [x] fix issue with multiple word terms, see: [bug report #13]([bug report #13](https://github.com/TheGreenToaster/docsify-glossary/issues/13))
 
 
 
