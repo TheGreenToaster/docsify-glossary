@@ -169,5 +169,55 @@ describe('Glossary terminology injection', () => {
         expect(result).toContain('API api = apiService.fetchApis();');
         expect([...result.matchAll('/_glossary\\?id=api')]).toHaveLength(1);
     });
+
+    it('Word replacements do not replace parts of a word', () => {
+        const textWithConcatenation = `
+            # This is an APIspec title
+            
+            This is a paragraph of text, explain stuff and mentioning the term APIspec, which should not be replaced.
+       `;
+
+        const configuration = defaultGlossifyConfig();
+
+        let result = addLinks(textWithConcatenation, dictionary, configuration);
+
+        expect([...result.matchAll('/_glossary\\?id=api')]).toHaveLength(0);
+    });
+});
+
+describe('Glossary location', () => {
+    let sourceText;
+    let config;
+    let dictionary;
+    let textWithTerminologyUsage;
+
+    beforeEach(() => {
+        sourceText = `
+    ##### API
+    
+    Application Program Interface. Specifies a set of software functions that are made available to an application
+    programmer. The API typically includes function names, the parameters that can be passed into each functions, and a
+    description of the return values one can expect.
+  `;
+
+        textWithTerminologyUsage = `
+        # This is an API title
+        
+        This is a paragraph of text, explain stuff and mentioning the term API.
+     `;
+    });
+
+    it(' is taken into account in replacements', () => {
+        let glossaryLocation = 'alternate/location/glossary/README';
+        config = glossifyConfig().withGlossaryLocation(glossaryLocation+'.md')
+                .build();
+
+        dictionary = loadTerminology(sourceText, config);
+        expect(dictionary['API']).toBeTruthy();
+
+        let result = addLinks(textWithTerminologyUsage, dictionary, config);
+
+        expect([...result.matchAll(`${glossaryLocation}\\?id=api`)]).toHaveLength(2);
+    });
 });
 
