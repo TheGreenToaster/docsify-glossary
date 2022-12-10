@@ -9,7 +9,10 @@ this["@stijn-dejongh/docsify-glossary"] = this["@stijn-dejongh/docsify-glossary"
 
 this["@stijn-dejongh/docsify-glossary"].js = function(exports) {
     "use strict";
-    function replaceTermInLine(term, contentLine, linkId) {
+    function replaceTermInLine(term, contentLine, linkId, config) {
+        if (isTitle(contentLine) && !config.replaceTitleTerms) {
+            return contentLine;
+        }
         var re = new RegExp("\\s(".concat(term, ")[\\s$]"), "ig");
         var reFullStop = new RegExp("\\s(".concat(term, ")."), "ig");
         var reComma = new RegExp("\\s(".concat(term, "),"), "ig");
@@ -20,11 +23,17 @@ this["@stijn-dejongh/docsify-glossary"].js = function(exports) {
     function isTitle(line) {
         return line.trim().startsWith("#");
     }
-    function replaceTerm(content, term, linkId) {
-        var contentLines = content.split("\n");
+    function replaceTerm(content, term, linkId, config) {
         var processedText = "";
-        contentLines.forEach((function(line, _index) {
-            var replacedLine = line.trim().length > 0 ? replaceTermInLine(term, line + " ", linkId).trimEnd() : line;
+        var codeBlockContext = false;
+        content.split("\n").forEach((function(line, _index) {
+            if (line.trim().startsWith("```")) {
+                codeBlockContext = !codeBlockContext;
+            }
+            var replacedLine = line;
+            if (line.trim().length > 0 && !codeBlockContext) {
+                replacedLine = replaceTermInLine(term, line + " ", linkId, config).trimEnd();
+            }
             processedText += replacedLine + "\n";
         }));
         return processedText;
@@ -35,7 +44,7 @@ this["@stijn-dejongh/docsify-glossary"].js = function(exports) {
             console.log("Adding links for terminology: ".concat(terms));
         }
         for (var term in terms) {
-            textWithReplacements = replaceTerm(textWithReplacements, term, terms[term]);
+            textWithReplacements = replaceTerm(textWithReplacements, term, terms[term], config);
         }
         return textWithReplacements;
     }
@@ -117,6 +126,7 @@ this["@stijn-dejongh/docsify-glossary"].js = function(exports) {
             _defineProperty(this, "terminologyHeading", "");
             _defineProperty(this, "glossaryLocation", "");
             _defineProperty(this, "debug", false);
+            _defineProperty(this, "replaceTitleTerms", true);
             this.terminologyHeading = DEFAULT_TERM_HEADING;
             this.glossaryLocation = DEFAULT_GLOSSARY_FILE_NAME;
         }
@@ -139,6 +149,12 @@ this["@stijn-dejongh/docsify-glossary"].js = function(exports) {
                 return this;
             }
         }, {
+            key: "withTitleTermReplacement",
+            value: function withTitleTermReplacement(enableTitleTermReplacement) {
+                this.replaceTitleTerms = enableTitleTermReplacement;
+                return this;
+            }
+        }, {
             key: "build",
             value: function build() {
                 return _objectSpread2({}, this);
@@ -147,8 +163,8 @@ this["@stijn-dejongh/docsify-glossary"].js = function(exports) {
         return GlossaryConfigurationBuilder;
     }();
     function configFromYaml(configurationYaml) {
-        var _configurationYaml$te, _configurationYaml$gl, _configurationYaml$de;
-        return (new GlossaryConfigurationBuilder).withTermHeading((_configurationYaml$te = configurationYaml.terminologyHeading) !== null && _configurationYaml$te !== void 0 ? _configurationYaml$te : DEFAULT_TERM_HEADING).withGlossaryLocation((_configurationYaml$gl = configurationYaml.glossaryLocation) !== null && _configurationYaml$gl !== void 0 ? _configurationYaml$gl : DEFAULT_GLOSSARY_FILE_NAME).withDebugEnabled((_configurationYaml$de = configurationYaml.debug) !== null && _configurationYaml$de !== void 0 ? _configurationYaml$de : false).build();
+        var _configurationYaml$te, _configurationYaml$gl, _configurationYaml$de, _configurationYaml$re;
+        return (new GlossaryConfigurationBuilder).withTermHeading((_configurationYaml$te = configurationYaml.terminologyHeading) !== null && _configurationYaml$te !== void 0 ? _configurationYaml$te : DEFAULT_TERM_HEADING).withGlossaryLocation((_configurationYaml$gl = configurationYaml.glossaryLocation) !== null && _configurationYaml$gl !== void 0 ? _configurationYaml$gl : DEFAULT_GLOSSARY_FILE_NAME).withDebugEnabled((_configurationYaml$de = configurationYaml.debug) !== null && _configurationYaml$de !== void 0 ? _configurationYaml$de : false).withTitleTermReplacement((_configurationYaml$re = configurationYaml.replaceTitleTerms) !== null && _configurationYaml$re !== void 0 ? _configurationYaml$re : true).build();
     }
     function defaultGlossifyConfig() {
         return (new GlossaryConfigurationBuilder).build();

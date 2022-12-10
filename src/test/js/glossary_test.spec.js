@@ -113,7 +113,7 @@ describe('Glossary terminology injection', () => {
         const textWithTile = `
             # This is an API title
             
-            This is a paragraph of text, explaing stuff and mentioning the term API.
+            This is a paragraph of text, explain stuff and mentioning the term API.
        `;
 
         const configuration = glossifyConfig().withTitleTermReplacement(false)
@@ -122,6 +122,52 @@ describe('Glossary terminology injection', () => {
         let result = addLinks(textWithTile, dictionary, configuration);
 
         expect(result).toContain('# This is an API title');
+    });
+
+    it('Word replacement is not executed within code blocks', () => {
+        const codeBlockWithTerminologyUsage = `
+            \`\`\`java
+            /**
+            * Some dummy code using a term from the glossary, to ensure the words are not replaced within code blocks.
+            * We expect the following code fragment to stay as it was originally written
+            */
+            public String getApiName() {
+              API api = apiService.fetchApis();
+              return api.getName()
+            }
+            \`\`\`
+       `;
+
+        const configuration = glossifyConfig()
+                .withTitleTermReplacement(false)
+                .build();
+
+        let result = addLinks(codeBlockWithTerminologyUsage, dictionary, configuration);
+
+        expect(result).toContain('API api = apiService.fetchApis();');
+        expect([...result.matchAll('/_glossary\\?id=api')]).toHaveLength(0);
+    });
+
+    it('Word replacement is enabled after code block closes', () => {
+        const codeBlockWithTerminologyUsage = `
+            \`\`\`java
+            public String getApiName() {
+              API api = apiService.fetchApis();
+              return api.getName()
+            }
+            \`\`\`
+            
+            The above example fetches the version of a certain API specification.
+       `;
+
+        const configuration = glossifyConfig()
+                .withTitleTermReplacement(false)
+                .build();
+
+        let result = addLinks(codeBlockWithTerminologyUsage, dictionary, configuration);
+
+        expect(result).toContain('API api = apiService.fetchApis();');
+        expect([...result.matchAll('/_glossary\\?id=api')]).toHaveLength(1);
     });
 });
 

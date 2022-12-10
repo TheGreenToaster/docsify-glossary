@@ -1,6 +1,6 @@
 function replaceTermInLine(term, contentLine, linkId, config) {
     if(isTitle(contentLine) && !config.replaceTitleTerms) {
-        // Intentially not combined in the return statement, to avoid superfluous calculations
+        // Intentionally not combined in the return statement, to avoid superfluous calculations
         return contentLine;
     }
 
@@ -23,13 +23,21 @@ function isTitle(line) {
 }
 
 export function replaceTerm(content, term, linkId, config) {
-    let contentLines = content.split('\n');
     let processedText = '';
 
-    contentLines.forEach( (line, _index) => {
-        let replacedLine = line.trim().length > 0 ? replaceTermInLine(term, line + ' ', linkId, config).trimEnd() : line;
+    let codeBlockContext = false;
+    content.split('\n').forEach( (line, _index) => {
+        if(line.trim().startsWith('```')) {
+            codeBlockContext = !codeBlockContext;
+        }
+
+        let replacedLine = line;
+        if(line.trim().length > 0 && !codeBlockContext) {
+            replacedLine = replaceTermInLine(term, line + ' ', linkId, config).trimEnd();
+        }
         processedText += replacedLine + '\n';
     });
+
     return processedText;
 }
 
