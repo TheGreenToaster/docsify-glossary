@@ -219,5 +219,23 @@ describe('Glossary location', () => {
 
         expect([...result.matchAll(`${glossaryLocation}\\?id=api`)]).toHaveLength(2);
     });
+
+    //   Issue with links referring to relative paths after compilation
+    // example case:
+    //    glossaryLocation: ./X_Appendix/Glossary/HOME.md
+    //    resulting link: http://localhost:3000/#/./X_Appendix/Glossary/HOME?id=practices
+    it(' can handle relative link configurations', () => {
+        let glossaryLocation = './alternate/location/glossary/README';
+        config = glossifyConfig()
+                .withGlossaryLocation(glossaryLocation+'.md')
+                .withLinkPrefix('#')
+                .build();
+
+        dictionary = loadTerminology(sourceText, config);
+        expect(dictionary['API']).toBeTruthy();
+
+        let result = addLinks(textWithTerminologyUsage, dictionary, config);
+        expect([...result.matchAll('/#/alternate/location/glossary/README\\?id=api')]).toHaveLength(2);
+    });
 });
 

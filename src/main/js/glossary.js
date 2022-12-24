@@ -9,7 +9,10 @@ function replaceTermInLine(term, contentLine, linkId, config) {
     let reComma = new RegExp(`\\s(${term}),`, 'ig');
     let reFullStop = new RegExp(`\\s(${term})\\.`, 'ig');
 
-    let link = ` [$1](/${config.glossaryLocation.replace('.md', '')}?id=${linkId})`;
+    let compiledLink = config.glossaryLocation
+            .replace('./', `${config.linkPrefix}/`)
+            .replace('.md', '');
+    let link = ` [$1](/${compiledLink}?id=${linkId})`;
 
     let replacement = contentLine.replace(reComma, link + ',')
             .replace(re, link + ' ')
