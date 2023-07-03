@@ -4,20 +4,15 @@ function replaceTermInLine(term, contentLine, linkId, config) {
         return contentLine;
     }
 
-    let re = new RegExp(`\\s${term}[\\s$]`, 'ig');
-
-    let reComma = new RegExp(`\\s${term},`, 'ig');
-    let reFullStop = new RegExp(`\\s${term}\\.`, 'ig');
+    let re = new RegExp(String.raw`(?=\b)${term}(?=\b)`, 'ig');
 
     let compiledLink = config.glossaryLocation
             .replace('./', `${config.linkPrefix}/`)
             .replace('.md', '');
     let titleSpace = isTitle(contentLine) ? ' ': '';
-    let link = ` [${titleSpace}${term}](/${compiledLink}?id=${linkId})`;
+    let link = `[${titleSpace}${term}](/${compiledLink}?id=${linkId})`;
 
-    return contentLine.replace(reComma, link + ',')
-            .replace(re, link + ' ')
-            .replace(reFullStop, link + '.');
+    return contentLine.replace(re, link);
 }
 
 function isTitle(line) {
