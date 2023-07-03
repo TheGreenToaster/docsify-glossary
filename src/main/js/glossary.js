@@ -4,15 +4,21 @@ function replaceTermInLine(term, contentLine, linkId, config) {
         return contentLine;
     }
 
-    let re = new RegExp(String.raw`(?=\b)${term}(?=\b)`, 'ig');
+    let re = new RegExp(
+        String.raw`(\[.+?\]\(.+?\))|` + // match MD links in group 1
+        String.raw`(?=\b)${term}(?=\b)` // match given term
+        , 'ig');
 
     let compiledLink = config.glossaryLocation
             .replace('./', `${config.linkPrefix}/`)
             .replace('.md', '');
-    let titleSpace = isTitle(contentLine) ? ' ': '';
-    let link = `[${titleSpace}${term}](/${compiledLink}?id=${linkId})`;
+    let titleSpace = isTitle(contentLine) ? ' ' : '';
+    let createLink = (match) => `[${titleSpace}${match}](/${compiledLink}?id=${
+        linkId} ':class=glossaryLink')`;
 
-    return contentLine.replace(re, link);
+    // only replace regular matches, replace matched group with itself
+    return contentLine.replace(
+        re, (match, group1) => group1 || createLink(match));
 }
 
 function isTitle(line) {
