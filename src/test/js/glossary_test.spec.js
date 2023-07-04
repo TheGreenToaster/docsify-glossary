@@ -183,6 +183,19 @@ describe('Glossary terminology injection', () => {
 
         expect([...result.matchAll('/_glossary\\?id=api')]).toHaveLength(0);
     });
+
+    it('Word replacements do not replace parts of a link', () => {
+        const textWithLink = `
+            This is a link containing the word [Some API link](http://link/to/ API .)
+       `;
+
+        const configuration = defaultGlossifyConfig();
+
+        let result = addLinks(textWithLink, dictionary, configuration);
+
+        expect(result).toContain('This is a link containing the word [Some API link](http://link/to/ API .)');
+        expect([...result.matchAll('/_glossary\\?id=api')]).toHaveLength(0);
+    });
 });
 
 describe('Glossary location', () => {
