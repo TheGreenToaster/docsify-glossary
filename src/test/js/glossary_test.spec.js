@@ -109,6 +109,12 @@ describe('Glossary terminology injection', () => {
         expect(result).toContain('## Information about the [ API](/_glossary?id=api)');
     });
 
+    it('preserves case of linked text', () => {
+        const textWithLink = 'aPi';
+        const result = addLinks(textWithLink, dictionary, config);
+        expect(result).toContain('[aPi](/_glossary?id=api \':class=glossaryLink\')');
+    });
+
     it('Word replacement in title sequences can be disabled', () => {
         const textWithTile = `
             # This is an API title
