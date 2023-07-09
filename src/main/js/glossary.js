@@ -4,21 +4,21 @@ function replaceTermInLine(term, contentLine, linkId, config) {
         return contentLine;
     }
 
-    let re = new RegExp(`\\s(${term})[\\s$]`, 'ig');
-
-    let reComma = new RegExp(`\\s(${term}),`, 'ig');
-    let reFullStop = new RegExp(`\\s(${term})\\.`, 'ig');
+    let re = new RegExp(
+        String.raw`(\[.+?\]\(.+?\))|` + // match MD links in group 1
+        String.raw`(?=\b)${term}(?=\b)` // match given term
+        , 'ig');
 
     let compiledLink = config.glossaryLocation
             .replace('./', `${config.linkPrefix}/`)
             .replace('.md', '');
-    let link = ` [$1](/${compiledLink}?id=${linkId})`;
+    let titleSpace = isTitle(contentLine) ? ' ' : '';
+    let createLink = (match) => `[${titleSpace}${match}](/${compiledLink}?id=${
+        linkId} ':class=glossaryLink')`;
 
-    let replacement = contentLine.replace(reComma, link + ',')
-            .replace(re, link + ' ')
-            .replace(reFullStop, link + '.');
-
-    return isTitle(contentLine) ? replacement.replaceAll(`[${term}]`, `[ ${term}]`): replacement;
+    // only replace regular matches, replace matched group with itself
+    return contentLine.replace(
+        re, (match, group1) => group1 || createLink(match));
 }
 
 function isTitle(line) {

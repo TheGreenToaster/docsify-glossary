@@ -106,7 +106,13 @@ describe('Glossary terminology injection', () => {
 
         const result = addLinks(textWithTitle, dictionary, config);
 
-        expect(result).toContain('## Information about the [ API](/_glossary?id=api)');
+        expect(result).toContain('## Information about the [ API](/_glossary?id=api \':class=glossaryLink\')');
+    });
+
+    it('preserves case of linked text', () => {
+        const textWithLink = 'aPi';
+        const result = addLinks(textWithLink, dictionary, config);
+        expect(result).toContain('[aPi](/_glossary?id=api \':class=glossaryLink\')');
     });
 
     it('Word replacement in title sequences can be disabled', () => {
@@ -181,6 +187,19 @@ describe('Glossary terminology injection', () => {
 
         let result = addLinks(textWithConcatenation, dictionary, configuration);
 
+        expect([...result.matchAll('/_glossary\\?id=api')]).toHaveLength(0);
+    });
+
+    it('Word replacements do not replace parts of a link', () => {
+        const textWithLink = `
+            This is a link containing the word [Some API link](http://link/to/ API .)
+       `;
+
+        const configuration = defaultGlossifyConfig();
+
+        let result = addLinks(textWithLink, dictionary, configuration);
+
+        expect(result).toContain('This is a link containing the word [Some API link](http://link/to/ API .)');
         expect([...result.matchAll('/_glossary\\?id=api')]).toHaveLength(0);
     });
 });
