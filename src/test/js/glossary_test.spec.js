@@ -106,7 +106,7 @@ describe('Glossary terminology injection', () => {
 
         const result = addLinks(textWithTitle, dictionary, config);
 
-        expect(result).toContain('## Information about the [ API](/_glossary?id=api)');
+        expect(result).toContain('## Information about the [ API](/_glossary?id=api \':class=glossaryLink\')');
     });
 
     it('preserves case of linked text', () => {
